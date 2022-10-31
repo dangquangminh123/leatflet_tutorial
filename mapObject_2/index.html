@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Lecture</title>
+
+    <link rel="stylesheet" href="lib/leaflet/leaflet.css">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
+
+    <script src="lib/leaflet/leaflet.js"></script>
+    <script src="lib/leaflet/jquery-3.5.1.js"></script>
+
+    <style>
+        #map_div{
+
+            height: 100vh;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+    <div id="map_div" class="col-md-12">
+
+    </div>
+
+
+</body>
+
+<script>
+    var myMap;
+    var lyrOSM;
+
+    $(document).ready(function () {
+
+        // create map object
+
+        myMap = L.map('map_div',{center: [31.59261, 74.31008], zoom:13,
+            zoomControl:false, dragging:false, minZoom:10, maxZoom:14,attributionControl:false
+        });
+
+        // add basemap layer
+        lyrOSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png');
+
+        myMap.addLayer(lyrOSM);
+
+        // event handler on left click
+        myMap.on('click' , function (e) {
+            alert(e.latlng.toString());
+            alert(myMap.getZoom());
+        });
+
+        // right click
+        myMap.on('contextmenu', function (e) {
+            L.marker(e.latlng).addTo(myMap).bindPopup(e.latlng.toString());
+        })
+    })
+
+</script>
+
+</html>
